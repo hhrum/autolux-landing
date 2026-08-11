@@ -133,7 +133,17 @@ public/
 npm run build
 ```
 
-Артефакт: папка `dist/` — любой статический хостинг (Vercel, Cloudflare Pages, Nginx и т.д.).
+Артефакт: папка `dist/`.
+
+### GitHub Pages
+
+Сайт публикуется через GitHub Actions по [инструкции Astro](https://docs.astro.build/en/guides/deploy/github/).
+
+- URL: **https://hhrum.github.io/autolux-landing/**
+- Workflow: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+- В `astro.config.mjs`: `site` + `base: '/autolux-landing'`
+
+После пуша в `main` открой **Settings → Pages** и выбери Source: **GitHub Actions** (один раз).
 
 ---
 
@@ -142,3 +152,4 @@ npm run build
 - [Routing](https://docs.astro.build/en/guides/routing/)  
 - [Components](https://docs.astro.build/en/basics/astro-components/)  
 - [Styling](https://docs.astro.build/en/guides/styling/)  
+- [Deploy to GitHub Pages](https://docs.astro.build/en/guides/deploy/github/)  

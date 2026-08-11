@@ -10,6 +10,11 @@ const {
   title = 'AutoLux — детейлинг и мойка в Ялуторовске',
   description = 'Профессиональный детейлинг, бережная двухфазная мойка и защита кузова. Работаем 24/7.',
 } = Astro.props;
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const fontUrl = `${base}fonts/Geist-Variable.woff2`;
 ---
 
 <!doctype html>
@@ -17,8 +22,8 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" href={`${base}favicon.ico`} />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
@@ -28,6 +33,15 @@ const {
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&display=swap"
       rel="stylesheet"
     />
+    <style is:global set:html={`
+      @font-face {
+        font-family: 'Geist';
+        src: url('${fontUrl}') format('woff2');
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+    `} />
   </head>
   <body>
     <slot />
