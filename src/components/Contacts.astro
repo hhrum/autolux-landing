@@ -1,0 +1,219 @@
+---
+import { contacts } from '../data/content';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+---
+
+<section class="section contacts" id="contacts">
+  <div class="container contacts__inner">
+    <SectionHeader badge={contacts.badge} title={contacts.title} />
+
+    <div class="contacts__content">
+      <div class="contacts__card">
+        {
+          contacts.items.map((item) => (
+            <div class="contact-item">
+              <div class="contact-item__icon">
+                <Icon
+                  name={item.icon === 'map' ? 'map' : item.icon === 'phone' ? 'phone-lg' : 'clock-lg'}
+                  size={24}
+                />
+              </div>
+              <div class="contact-item__text">
+                <span class="contact-item__label">{item.label}</span>
+                {item.href ? (
+                  <a class="contact-item__value" href={item.href}>
+                    {item.value}
+                  </a>
+                ) : (
+                  <>
+                    <span class="contact-item__value contact-item__value--full">{item.value}</span>
+                    {'valueShort' in item && item.valueShort ? (
+                      <span class="contact-item__value contact-item__value--short">{item.valueShort}</span>
+                    ) : null}
+                  </>
+                )}
+              </div>
+            </div>
+          ))
+        }
+
+        <div class="contacts__socials">
+          {
+            contacts.socials.map((social) => (
+              <a class:list={['social-btn', `social-btn--${social.variant}`]} href={social.href}>
+                {social.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="contacts__map">
+        <img src={contacts.map.src} alt="Карта проезда к AutoLux" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contacts__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .contacts__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contacts__card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .contact-item__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    padding: 8px;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+  }
+
+  .contact-item__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .contact-item__label {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .contact-item__value {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .contact-item__value--full {
+    display: none;
+  }
+
+  .contacts__socials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    transition: filter 0.2s ease;
+  }
+
+  .social-btn:hover {
+    filter: brightness(1.1);
+  }
+
+  .social-btn--vk {
+    border: 1px solid rgba(0, 119, 255, 0.2);
+    background: rgba(0, 119, 255, 0.12);
+    color: var(--vk);
+  }
+
+  .social-btn--tg {
+    border: 1px solid rgba(34, 158, 217, 0.2);
+    background: rgba(34, 158, 217, 0.12);
+    color: var(--tg);
+  }
+
+  .contacts__map {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .contacts__map img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .contacts__card {
+      padding: 24px;
+    }
+
+    .contact-item__icon {
+      padding: 8px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contacts__content {
+      flex-direction: row;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .contacts__card,
+    .contacts__map {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contacts__card {
+      gap: 28px;
+      padding: 32px;
+    }
+
+    .contact-item {
+      gap: 16px;
+      align-items: center;
+    }
+
+    .contact-item__icon {
+      padding: 12px;
+    }
+
+    .contact-item__value--short {
+      display: none;
+    }
+
+    .contact-item__value--full {
+      display: inline;
+    }
+
+    .contact-item__value {
+      font-size: 16px;
+    }
+
+    .contacts__map img {
+      height: 360px;
+    }
+  }
+</style>

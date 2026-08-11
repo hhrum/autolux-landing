@@ -1,0 +1,212 @@
+---
+import { hero } from '../data/content';
+import Badge from './ui/Badge.astro';
+import Button from './ui/Button.astro';
+---
+
+<section class="hero">
+  <div class="hero__media" aria-hidden="true">
+    <img class="hero__image" src={hero.image.src} alt="" />
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <Badge text={hero.badge} />
+      <h1 class="hero__title">
+        {hero.titleBefore}<span class="hero__accent">{hero.titleAccent}</span>{hero.titleAfter}
+      </h1>
+      <p class="hero__desc">{hero.description}</p>
+      <div class="hero__actions">
+        <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
+        <Button href={hero.secondaryCta.href} variant="secondary">{hero.secondaryCta.label}</Button>
+      </div>
+    </div>
+
+    <ul class="hero__stats">
+      {
+        hero.stats.map((stat) => (
+          <li class="hero__stat">
+            <span class="hero__stat-label">{stat.label}</span>
+            <span class="hero__stat-value">{stat.value}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 520px;
+    overflow: hidden;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 12, 0.85);
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    min-height: 520px;
+    padding-block: 40px 32px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 720px;
+  }
+
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 7vw, 56px);
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .hero__accent {
+    color: var(--accent);
+  }
+
+  .hero__desc {
+    max-width: 56ch;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero__stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero__stat-label {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .hero__stat-value {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  @media (min-width: 768px) {
+    .hero,
+    .hero__inner {
+      min-height: calc(100dvh - 86px);
+    }
+
+    .hero__inner {
+      justify-content: flex-end;
+      padding-block: 48px 40px;
+    }
+
+    .hero__actions {
+      flex-direction: row;
+      align-items: center;
+      width: auto;
+    }
+
+    .hero__desc {
+      font-size: 17px;
+    }
+
+    .hero__stats {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .hero__stat-label {
+      font-size: 12px;
+    }
+
+    .hero__stat-value {
+      font-size: 15px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero,
+    .hero__inner {
+      min-height: calc(100dvh - 84px);
+    }
+
+    .hero__inner {
+      padding-block: 64px;
+    }
+
+    .hero__content {
+      gap: 24px;
+    }
+
+    .hero__desc {
+      font-size: 18px;
+    }
+
+    .hero__actions {
+      gap: 16px;
+    }
+
+    .hero__stats {
+      gap: 40px;
+      padding-top: 40px;
+    }
+
+    .hero__stat-label {
+      font-size: 12px;
+    }
+
+    .hero__stat-value {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .hero,
+    .hero__inner {
+      min-height: calc(100dvh - 92px);
+    }
+  }
+</style>

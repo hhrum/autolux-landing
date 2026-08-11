@@ -1,0 +1,105 @@
+---
+import phoneIcon from '../../assets/icons/phone.svg?url';
+import phoneLgIcon from '../../assets/icons/phone-lg.svg?url';
+import arrowIcon from '../../assets/icons/arrow-right.svg?url';
+import shieldIcon from '../../assets/icons/shield-check.svg?url';
+import sparklesIcon from '../../assets/icons/sparkles.svg?url';
+import windIcon from '../../assets/icons/wind.svg?url';
+import clockIcon from '../../assets/icons/clock.svg?url';
+import clockLgIcon from '../../assets/icons/clock-lg.svg?url';
+import starIcon from '../../assets/icons/star.svg?url';
+import mapPinIcon from '../../assets/icons/map-pin.svg?url';
+
+type IconName =
+  | 'phone'
+  | 'phone-lg'
+  | 'arrow'
+  | 'shield'
+  | 'sparkles'
+  | 'wind'
+  | 'clock'
+  | 'clock-lg'
+  | 'star'
+  | 'map'
+  | 'menu'
+  | 'close';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  alt?: string;
+  class?: string;
+}
+
+const icons: Record<string, string> = {
+  phone: phoneIcon,
+  'phone-lg': phoneLgIcon,
+  arrow: arrowIcon,
+  shield: shieldIcon,
+  sparkles: sparklesIcon,
+  wind: windIcon,
+  clock: clockIcon,
+  'clock-lg': clockLgIcon,
+  star: starIcon,
+  map: mapPinIcon,
+};
+
+const { name, size = 24, alt = '', class: className = '' } = Astro.props;
+const src = icons[name];
+---
+
+{
+  name === 'menu' ? (
+    <svg
+      class={className}
+      width={size}
+      height={size}
+      viewBox="0 0 18 18"
+      fill="none"
+      aria-hidden={alt ? undefined : true}
+      role={alt ? 'img' : undefined}
+    >
+      {alt && <title>{alt}</title>}
+      <path
+        d="M2 4.5h14M2 9h14M2 13.5h14"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+    </svg>
+  ) : name === 'close' ? (
+    <svg
+      class={className}
+      width={size}
+      height={size}
+      viewBox="0 0 18 18"
+      fill="none"
+      aria-hidden={alt ? undefined : true}
+      role={alt ? 'img' : undefined}
+    >
+      {alt && <title>{alt}</title>}
+      <path
+        d="M4 4l10 10M14 4L4 14"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+    </svg>
+  ) : (
+    <img
+      class:list={['icon', className]}
+      src={src}
+      width={size}
+      height={size}
+      alt={alt}
+      decoding="async"
+    />
+  )
+}
+
+<style>
+  .icon {
+    display: block;
+    flex-shrink: 0;
+  }
+</style>

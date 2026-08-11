@@ -1,46 +1,144 @@
-# Astro Starter Kit: Basics
+# AutoLux
 
-```sh
-npm create astro@latest -- --template basics
+Лендинг детейлинг-студии **AutoLux** (Ялуторовск) — одностраничный сайт на [Astro](https://astro.build).
+
+Тёмный премиальный UI, акцент `#BFFF00`, адаптив под 4 брейкпоинта из Figma.
+
+---
+
+## Быстрый старт
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Открой [http://localhost:4321](http://localhost:4321).
 
-## 🚀 Project Structure
+> Нужен **Node.js ≥ 22.12**.
 
-Inside of your Astro project, you'll see the following folders and files:
+---
+
+## Команды
+
+| Команда | Описание |
+| --- | --- |
+| `npm run dev` | Dev-сервер на `localhost:4321` |
+| `npm run build` | Сборка в `./dist/` |
+| `npm run preview` | Превью production-сборки |
+| `npm run astro …` | CLI Astro (`check`, `add`, …) |
+
+Фоновый режим (из `AGENTS.md`):
+
+```bash
+astro dev --background
+astro dev status
+astro dev logs
+astro dev stop
+```
+
+---
+
+## Брейкпоинты
+
+| Имя | Диапазон | Поведение |
+| --- | --- | --- |
+| Mobile | `375–767` | Бургер-меню, одна колонка |
+| Tablet | `768–1023` | Телефон + CTA, сетки 2 колонки |
+| Laptop | `1024–1439` | Навигация + телефон, без CTA в шапке |
+| Desktop | `1440+` | Полный хедер, широкие сетки |
+
+Отступы контента: **20px** → **40px** → **80px** (desktop).
+
+---
+
+## Структура
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── pages/index.astro          # Сборка секций
+├── layouts/Layout.astro       # HTML-оболочка, meta, шрифты
+├── styles/global.css          # Токены, reset, container
+├── data/content.ts            # Тексты, цены, отзывы, контакты
+├── components/
+│   ├── Header.astro
+│   ├── Hero.astro
+│   ├── Services.astro
+│   ├── Pricelist.astro
+│   ├── ValueProps.astro
+│   ├── BeforeAfter.astro
+│   ├── Comfort.astro
+│   ├── Reviews.astro
+│   ├── Contacts.astro
+│   ├── Footer.astro
+│   └── ui/                    # Badge, Button, Icon, SectionHeader
+└── assets/
+    ├── images/                # Hero, услуги, до/после, карта…
+    └── icons/                 # SVG из макета
+public/
+└── fonts/Geist-Variable.woff2
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Контент правь в [`src/data/content.ts`](src/data/content.ts) — компоненты его подхватывают сами.
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## Секции страницы
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+1. **Header** — логотип, якоря, телефон, «Запись онлайн», мобильное меню  
+2. **Hero** — оффер, CTA, блок преимуществ  
+3. **Services** — каталог услуг  
+4. **Pricelist** — тарифы по классам авто  
+5. **Value props** — «Почему мы»  
+6. **Before / After** — кейсы работ  
+7. **Comfort** — зона ожидания  
+8. **Reviews** — отзывы + рейтинг Яндекс  
+9. **Contacts** — адрес, телефон, соцсети, карта  
+10. **Footer**
 
-## 👀 Want to learn more?
+Якоря: `#services` · `#pricelist` · `#value-props` · `#before-after` · `#contacts`
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+## Стек и стили
+
+- **Astro 7**, статическая сборка  
+- Scoped CSS в компонентах + CSS-переменные в `global.css`  
+- Шрифты: **Outfit** (Google Fonts) + **Geist** (локальный `woff2`)  
+- Без Tailwind и UI-библиотек  
+
+Дизайн-токены (фрагмент):
+
+```css
+--bg: #0a0a0c;
+--surface: #19191d;
+--accent: #bfff00;
+--muted: #a1a1aa;
+```
+
+---
+
+## Что пока заглушки
+
+- CTA ведут на `#contacts` или `tel:+79123940485`  
+- VK / Telegram — ссылки `#`  
+- Карта — статичный PNG из макета (не виджет Яндекс.Карт)  
+- Онлайн-запись / формы / аналитика — вне текущего scope  
+
+---
+
+## Сборка и деплой
+
+```bash
+npm run build
+```
+
+Артефакт: папка `dist/` — любой статический хостинг (Vercel, Cloudflare Pages, Nginx и т.д.).
+
+---
+
+## Документация Astro
+
+- [Routing](https://docs.astro.build/en/guides/routing/)  
+- [Components](https://docs.astro.build/en/basics/astro-components/)  
+- [Styling](https://docs.astro.build/en/guides/styling/)  

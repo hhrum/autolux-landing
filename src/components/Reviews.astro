@@ -1,0 +1,192 @@
+---
+import { reviews } from '../data/content';
+import Badge from './ui/Badge.astro';
+import Icon from './ui/Icon.astro';
+---
+
+<section class="section section--alt reviews">
+  <div class="container reviews__inner">
+    <header class="reviews__header">
+      <Badge text={reviews.badge} />
+      <div class="reviews__title-row">
+        <h2 class="reviews__title">
+          <span class="reviews__title-full">{reviews.title}</span>
+          <span class="reviews__title-short">{reviews.titleShort}</span>
+        </h2>
+        <div class="reviews__rating">
+          <span class="reviews__rating-full">{reviews.rating}</span>
+          <span class="reviews__rating-short">{reviews.ratingShort}</span>
+          <Icon name="star" size={16} />
+        </div>
+      </div>
+    </header>
+
+    <div class="reviews__grid">
+      {
+        reviews.items.map((item, index) => (
+          <article class:list={['review-card', index === 2 && 'review-card--third']}>
+            <header class="review-card__header">
+              <div>
+                <h3 class="review-card__name">{item.name}</h3>
+                <p class="review-card__car">{item.car}</p>
+              </div>
+              <span class="review-card__stars">
+                <span class="review-card__stars-full">{item.rating}</span>
+                <span class="review-card__stars-short">{item.ratingShort}</span>
+              </span>
+            </header>
+            <p class="review-card__text">{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .reviews__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .reviews__title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .reviews__title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .reviews__title-full {
+    display: none;
+  }
+
+  .reviews__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .reviews__rating-full {
+    display: none;
+  }
+
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .review-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .review-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .review-card__name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .review-card__car {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .review-card__stars {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .review-card__stars-full {
+    display: none;
+  }
+
+  .review-card__text {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  @media (min-width: 768px) {
+    .reviews__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .review-card--third {
+      display: none;
+    }
+
+    .review-card {
+      padding: 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reviews__title-short,
+    .reviews__rating-short,
+    .review-card__stars-short {
+      display: none;
+    }
+
+    .reviews__title-full,
+    .reviews__rating-full,
+    .review-card__stars-full {
+      display: inline;
+    }
+
+    .reviews__rating {
+      font-size: 18px;
+    }
+
+    .reviews__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .review-card--third {
+      display: flex;
+    }
+
+    .review-card {
+      padding: 24px;
+    }
+  }
+</style>

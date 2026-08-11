@@ -1,0 +1,116 @@
+---
+import { comfort } from '../data/content';
+import SectionHeader from './ui/SectionHeader.astro';
+---
+
+<section class="section comfort">
+  <div class="container comfort__inner">
+    <SectionHeader badge={comfort.badge} title={comfort.title} />
+
+    <div class="comfort__content">
+      <div class="comfort__media">
+        <img src={comfort.image.src} alt="Зона ожидания AutoLux" loading="lazy" decoding="async" />
+      </div>
+      <div class="comfort__details">
+        <p class="comfort__desc">{comfort.description}</p>
+        <ul class="comfort__list">
+          {
+            comfort.amenities.map((item) => (
+              <li class="comfort__item">
+                <span class="comfort__bullet" aria-hidden="true"></span>
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comfort__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .comfort__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .comfort__media {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+
+  .comfort__media img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .comfort__details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .comfort__desc {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .comfort__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .comfort__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .comfort__bullet {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    background: var(--accent);
+  }
+
+  @media (min-width: 768px) {
+    .comfort__media img {
+      height: 200px;
+    }
+
+    .comfort__desc {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .comfort__content {
+      flex-direction: row;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .comfort__media,
+    .comfort__details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .comfort__media img {
+      height: 340px;
+    }
+  }
+</style>

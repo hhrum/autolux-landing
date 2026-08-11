@@ -1,0 +1,45 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  badge: string;
+  title: string;
+  row?: boolean;
+}
+
+const { badge, title, row = false } = Astro.props;
+---
+
+<header class:list={['section-header', row && 'section-header--row']}>
+  <Badge text={badge} />
+  <div class="section-header__row">
+    <h2 class="section-header__title">{title}</h2>
+    <slot name="aside" />
+  </div>
+</header>
+
+<style>
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .section-header__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px 24px;
+    width: 100%;
+  }
+
+  .section-header__title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--text);
+  }
+</style>

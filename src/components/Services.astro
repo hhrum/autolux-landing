@@ -1,0 +1,162 @@
+---
+import { services } from '../data/content';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+---
+
+<section class="section services" id="services">
+  <div class="container services__inner">
+    <SectionHeader badge={services.badge} title={services.title} />
+
+    <div class="services__grid">
+      {
+        services.items.map((item) => (
+          <article class="service-card">
+            <div class="service-card__media">
+              <img src={item.image.src} alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title">{item.title}</h3>
+              <p class="service-card__desc">{item.description}</p>
+              <div class="service-card__footer">
+                <span class="service-card__price">{item.price}</span>
+                <a class="service-card__link" href={item.href}>
+                  <span class="service-card__link-text">Подробнее</span>
+                  <Icon name="arrow" size={14} />
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .service-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .service-card__media {
+    height: 160px;
+  }
+
+  .service-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .service-card__title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .service-card__desc {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .service-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .service-card__price {
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .service-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .service-card__link:hover {
+    color: var(--accent);
+  }
+
+  .service-card__link-text {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .services__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .service-card__media {
+      height: 180px;
+    }
+
+    .service-card__body {
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .service-card__title {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services__grid {
+      gap: 24px;
+    }
+
+    .service-card__body {
+      padding: 24px;
+    }
+
+    .service-card__link-text {
+      display: inline;
+    }
+
+    .service-card__price {
+      font-size: 18px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .services__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

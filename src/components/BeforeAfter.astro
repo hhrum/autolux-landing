@@ -1,0 +1,148 @@
+---
+import { beforeAfter } from '../data/content';
+import SectionHeader from './ui/SectionHeader.astro';
+---
+
+<section class="section section--alt before-after" id="before-after">
+  <div class="container before-after__inner">
+    <SectionHeader badge={beforeAfter.badge} title={beforeAfter.title} />
+
+    <div class="before-after__stack">
+      {
+        beforeAfter.items.map((item) => (
+          <article class="case">
+            <header class="case__info">
+              <h3 class="case__title">{item.title}</h3>
+              <p class="case__desc">{item.description}</p>
+            </header>
+            <div class="case__images">
+              <div class="case__block">
+                <img src={item.before.src} alt={`До: ${item.title}`} loading="lazy" decoding="async" />
+                <span class="case__label case__label--before">ДО</span>
+              </div>
+              <div class="case__block case__block--after">
+                <img src={item.after.src} alt={`После: ${item.title}`} loading="lazy" decoding="async" />
+                <span class="case__label case__label--after">ПОСЛЕ</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .before-after__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .before-after__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .case {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .case__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .case__title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .case__desc {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .case__images {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .case__block {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+  }
+
+  .case__block--after {
+    border: 1px solid var(--accent);
+  }
+
+  .case__block img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .case__label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .case__label--before {
+    background: var(--danger);
+  }
+
+  .case__label--after {
+    background: var(--success);
+  }
+
+  @media (min-width: 768px) {
+    .before-after__stack {
+      gap: 40px;
+    }
+
+    .case__title {
+      font-size: 20px;
+    }
+
+    .case__images {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .case__block img {
+      height: 220px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .case__images {
+      gap: 24px;
+    }
+
+    .case__block img {
+      height: 260px;
+    }
+
+    .case__label {
+      top: 16px;
+      left: 16px;
+      padding: 6px 12px;
+    }
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+import { valueProps } from '../data/content';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+
+const iconMap = {
+  shield: 'shield',
+  sparkles: 'sparkles',
+  wind: 'wind',
+  clock: 'clock',
+} as const;
+---
+
+<section class="section value-props" id="value-props">
+  <div class="container value-props__inner">
+    <SectionHeader badge={valueProps.badge} title={valueProps.title} />
+
+    <div class="value-props__grid">
+      {
+        valueProps.items.map((item) => (
+          <article class="prop-card">
+            <div class="prop-card__icon">
+              <Icon name={iconMap[item.icon as keyof typeof iconMap]} size={24} />
+            </div>
+            <h3 class="prop-card__title">{item.title}</h3>
+            <p class="prop-card__desc">{item.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .value-props__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .value-props__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .prop-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .prop-card__icon {
+    display: inline-flex;
+    padding: 10px;
+    width: fit-content;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+  }
+
+  .prop-card__title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .prop-card__desc {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  @media (min-width: 768px) {
+    .value-props__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .prop-card {
+      padding: 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .value-props__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .prop-card:nth-child(4) {
+      grid-column: 1 / -1;
+    }
+
+    .prop-card {
+      padding: 24px;
+    }
+
+    .prop-card__icon {
+      padding: 12px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .value-props__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .prop-card:nth-child(4) {
+      grid-column: auto;
+    }
+  }
+</style>

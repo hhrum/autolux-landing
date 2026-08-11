@@ -1,0 +1,177 @@
+---
+import { pricelist } from '../data/content';
+import SectionHeader from './ui/SectionHeader.astro';
+import Button from './ui/Button.astro';
+---
+
+<section class="section section--alt pricelist" id="pricelist">
+  <div class="container pricelist__inner">
+    <SectionHeader badge={pricelist.badge} title={pricelist.title} />
+
+    <div class="pricelist__grid">
+      {
+        pricelist.plans.map((plan) => (
+          <article class:list={['price-card', plan.featured && 'price-card--featured']}>
+            <header class="price-card__header">
+              <h3 class="price-card__name">{plan.name}</h3>
+              <span class="price-card__from">{plan.from}</span>
+            </header>
+            <ul class="price-card__rows">
+              {plan.rows.map((row) => (
+                <li class="price-card__row">
+                  <span>{row.label}</span>
+                  <strong>{row.price}</strong>
+                </li>
+              ))}
+            </ul>
+            <div class="price-card__extra">
+              {plan.extra.split('\n').map((line) => (
+                <p>{line}</p>
+              ))}
+            </div>
+            <Button href="#contacts" block>
+              Выбрать тариф
+            </Button>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricelist__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+
+  .pricelist__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .price-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .price-card--featured {
+    border-width: 2px;
+    border-color: var(--accent);
+  }
+
+  .price-card__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .price-card__name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .price-card__from {
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .price-card__rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-block: 4px;
+    border-block: 1px solid var(--border);
+  }
+
+  .price-card__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .price-card__row span {
+    color: var(--muted);
+  }
+
+  .price-card__row strong {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  .price-card__extra {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .price-card__extra p + p {
+    margin-top: 0;
+  }
+
+  @media (min-width: 768px) {
+    .pricelist__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      padding: 20px;
+      min-width: 0;
+    }
+
+    .price-card__name,
+    .price-card__from {
+      font-size: 15px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pricelist__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .price-card:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+
+    .price-card {
+      padding: 24px;
+    }
+
+    .price-card__name,
+    .price-card__from {
+      font-size: 18px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .pricelist__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .price-card:nth-child(3) {
+      grid-column: auto;
+    }
+  }
+</style>
