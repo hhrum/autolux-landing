@@ -20,6 +20,15 @@ jobs:
         uses: withastro/action@v6
         with:
           node-version: 22
+        env:
+          # Admin publishing POC — baked into /admin client bundle.
+          # Add repo secret: Settings → Secrets → Actions → VITE_GH_TOKEN
+          VITE_GH_TOKEN: ${{ secrets.VITE_GH_TOKEN }}
+          VITE_GH_OWNER: ${{ vars.VITE_GH_OWNER || 'hhrum' }}
+          VITE_GH_REPO: ${{ vars.VITE_GH_REPO || 'autolux-landing' }}
+          VITE_GH_MAIN_BRANCH: ${{ vars.VITE_GH_MAIN_BRANCH || 'main' }}
+          VITE_GH_DRAFT_BRANCH: ${{ vars.VITE_GH_DRAFT_BRANCH || 'draft' }}
+          VITE_GH_WORKFLOW_FILE: ${{ vars.VITE_GH_WORKFLOW_FILE || 'deploy.yml' }}
 
   deploy:
     needs: build
