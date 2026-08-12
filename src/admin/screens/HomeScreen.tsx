@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ScreenHeader } from '../components/ScreenHeader';
+import { useAdmin } from '../AdminContext';
+import { ActionStatusWidget } from '../publishing/components/ActionStatusWidget';
+import { PublishStatusWidget } from '../publishing/components/PublishStatusWidget';
 
 const sections = [
   { to: '/brand', title: 'Бренд и футер', icon: BadgeCheck },
@@ -27,12 +30,20 @@ const sections = [
 ] as const;
 
 export function HomeScreen() {
+  const { loading, dirty } = useAdmin();
+
   return (
     <div className="flex min-h-dvh flex-col">
       <ScreenHeader title="AutoLux Admin" />
       <div className="flex-1 p-3">
+        <PublishStatusWidget />
+        <ActionStatusWidget />
         <p className="mb-3 text-sm text-muted-foreground">
-          Выберите раздел лендинга. Изменения только в UI (мок).
+          {loading
+            ? 'Загрузка контента с GitHub…'
+            : dirty
+              ? 'Есть локальные правки — сохраните в draft на Home.'
+              : 'Выберите раздел. Формы пишут в локальный стейт; в Git — кнопки выше.'}
         </p>
         <nav className="grid gap-2">
           {sections.map(({ to, title, icon: Icon }) => (

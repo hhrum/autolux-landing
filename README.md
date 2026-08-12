@@ -147,6 +147,16 @@ npm run build
 
 ---
 
+## Админка (`/admin`)
+
+Мобильный редактор контента. Публикация идёт через GitHub API (Octokit) в ветку `draft`, затем merge в `main` (PR merge). Ключи — в `.env` / `.env.example` (`VITE_GH_*`).
+
+**Безопасность (POC):** `VITE_GH_TOKEN` попадает в клиентский бандл админки — только для закрытого POC. В проде нужен свой REST API и server-side token (`RestApiAdapter` вместо `GitHubOctokitAdapter`). Не коммитьте `.env`.
+
+Картинки в этой итерации: локальная замена только для превью, в Git не пушатся.
+
+---
+
 ## Документация Astro
 
 - [Routing](https://docs.astro.build/en/guides/routing/)  

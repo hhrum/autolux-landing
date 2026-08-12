@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { ImageIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { configFromEnv } from '../../publishing/config';
+import { resolveImageForDisplay } from '../../publishing/image-url';
 import { Field } from './Field';
 
 type ImageFieldProps = {
@@ -9,15 +11,25 @@ type ImageFieldProps = {
   onChange: (url: string) => void;
 };
 
+function displaySrc(value: string): string {
+  const cfg = configFromEnv();
+  if (!cfg) return value;
+  return resolveImageForDisplay(value, {
+    owner: cfg.owner,
+    repo: cfg.repo,
+    branch: cfg.draftBranch || cfg.mainBranch,
+  });
+}
+
 export function ImageField({ label, value, onChange }: ImageFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <Field label={label} hint="Замена локальная (мок), без upload API">
+    <Field label={label} hint="TODO: картинки в этой итерации не публикуются (только превью)">
       <div className="overflow-hidden rounded-lg border border-border bg-muted/40">
         <div className="relative flex aspect-[16/10] items-center justify-center bg-muted">
           {value ? (
-            <img src={value} alt="" className="size-full object-cover" />
+            <img src={displaySrc(value)} alt="" className="size-full object-cover" />
           ) : (
             <ImageIcon className="size-8 text-muted-foreground" />
           )}
