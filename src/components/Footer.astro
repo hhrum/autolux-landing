@@ -1,5 +1,8 @@
 ---
-import { brand, footer } from '../data/content';
+import { getSingleton } from '../lib/content';
+
+const brand = (await getSingleton('brand')).data;
+const footer = (await getSingleton('footer')).data;
 
 const homeHref = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL

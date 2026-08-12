@@ -1,7 +1,14 @@
 ---
-import { brand, navLinks } from '../data/content';
+import { getCollection } from 'astro:content';
 import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
+import { getSingleton } from '../lib/content';
+
+const brand = (await getSingleton('brand')).data;
+
+const navLinks = (await getCollection('navigation')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 
 const homeHref = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
@@ -21,8 +28,8 @@ const homeHref = import.meta.env.BASE_URL.endsWith('/')
     <nav class="nav" aria-label="Основная навигация">
       {
         navLinks.map((link) => (
-          <a class="nav__link" href={link.href}>
-            {link.label}
+          <a class="nav__link" href={link.data.href}>
+            {link.data.label}
           </a>
         ))
       }
@@ -53,8 +60,8 @@ const homeHref = import.meta.env.BASE_URL.endsWith('/')
     <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
       {
         navLinks.map((link) => (
-          <a class="mobile-menu__link" href={link.href}>
-            {link.label}
+          <a class="mobile-menu__link" href={link.data.href}>
+            {link.data.label}
           </a>
         ))
       }

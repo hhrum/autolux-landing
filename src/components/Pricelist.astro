@@ -1,23 +1,30 @@
 ---
-import { pricelist } from '../data/content';
+import { getCollection } from 'astro:content';
 import SectionHeader from './ui/SectionHeader.astro';
 import Button from './ui/Button.astro';
+import { getSection } from '../lib/content';
+
+const section = await getSection('pricelist');
+
+const plans = (await getCollection('plans')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <section class="section section--alt pricelist" id="pricelist">
   <div class="container pricelist__inner">
-    <SectionHeader badge={pricelist.badge} title={pricelist.title} />
+    <SectionHeader badge={section.data.badge} title={section.data.title} />
 
     <div class="pricelist__grid">
       {
-        pricelist.plans.map((plan) => (
-          <article class:list={['price-card', plan.featured && 'price-card--featured']}>
+        plans.map((plan) => (
+          <article class:list={['price-card', plan.data.featured && 'price-card--featured']}>
             <header class="price-card__header">
-              <h3 class="price-card__name">{plan.name}</h3>
-              <span class="price-card__from">{plan.from}</span>
+              <h3 class="price-card__name">{plan.data.name}</h3>
+              <span class="price-card__from">{plan.data.from}</span>
             </header>
             <ul class="price-card__rows">
-              {plan.rows.map((row) => (
+              {plan.data.rows.map((row) => (
                 <li class="price-card__row">
                   <span>{row.label}</span>
                   <strong>{row.price}</strong>
@@ -25,7 +32,7 @@ import Button from './ui/Button.astro';
               ))}
             </ul>
             <div class="price-card__extra">
-              {plan.extra.split('\n').map((line) => (
+              {(plan.body?.trim() ?? '').split('\n').map((line) => (
                 <p>{line}</p>
               ))}
             </div>

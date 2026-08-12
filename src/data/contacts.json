@@ -1,0 +1,26 @@
+{
+  "map": "../assets/images/map.png",
+  "items": [
+    {
+      "icon": "map",
+      "label": "Адрес студии",
+      "value": "г. Ялуторовск, ул. Сибирская 1, корпус 1",
+      "valueShort": "г. Ялуторовск, ул. Сибирская 1, к. 1"
+    },
+    {
+      "icon": "phone",
+      "label": "Телефон для связи",
+      "value": "8 (912) 394-04-85",
+      "href": "tel:+79123940485"
+    },
+    {
+      "icon": "clock",
+      "label": "Режим работы",
+      "value": "Круглосуточно 24/7, без выходных"
+    }
+  ],
+  "socials": [
+    { "label": "ВКонтакте", "href": "#", "variant": "vk" },
+    { "label": "Telegram", "href": "#", "variant": "tg" }
+  ]
+}

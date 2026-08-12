@@ -1,21 +1,28 @@
 ---
-import { reviews } from '../data/content';
+import { getCollection } from 'astro:content';
 import Badge from './ui/Badge.astro';
 import Icon from './ui/Icon.astro';
+import { getSection } from '../lib/content';
+
+const section = await getSection('reviews');
+
+const reviews = (await getCollection('reviews')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <section class="section section--alt reviews">
   <div class="container reviews__inner">
     <header class="reviews__header">
-      <Badge text={reviews.badge} />
+      <Badge text={section.data.badge} />
       <div class="reviews__title-row">
         <h2 class="reviews__title">
-          <span class="reviews__title-full">{reviews.title}</span>
-          <span class="reviews__title-short">{reviews.titleShort}</span>
+          <span class="reviews__title-full">{section.data.title}</span>
+          <span class="reviews__title-short">{section.data.titleShort}</span>
         </h2>
         <div class="reviews__rating">
-          <span class="reviews__rating-full">{reviews.rating}</span>
-          <span class="reviews__rating-short">{reviews.ratingShort}</span>
+          <span class="reviews__rating-full">{section.data.rating}</span>
+          <span class="reviews__rating-short">{section.data.ratingShort}</span>
           <Icon name="star" size={16} />
         </div>
       </div>
@@ -23,19 +30,19 @@ import Icon from './ui/Icon.astro';
 
     <div class="reviews__grid">
       {
-        reviews.items.map((item, index) => (
+        reviews.map((item, index) => (
           <article class:list={['review-card', index === 2 && 'review-card--third']}>
             <header class="review-card__header">
               <div>
-                <h3 class="review-card__name">{item.name}</h3>
-                <p class="review-card__car">{item.car}</p>
+                <h3 class="review-card__name">{item.data.name}</h3>
+                <p class="review-card__car">{item.data.car}</p>
               </div>
               <span class="review-card__stars">
-                <span class="review-card__stars-full">{item.rating}</span>
-                <span class="review-card__stars-short">{item.ratingShort}</span>
+                <span class="review-card__stars-full">{item.data.rating}</span>
+                <span class="review-card__stars-short">{item.data.ratingShort}</span>
               </span>
             </header>
-            <p class="review-card__text">{item.text}</p>
+            <p class="review-card__text">{item.body?.trim()}</p>
           </article>
         ))
       }

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "seats",
+    "title": "Химчистка кожаных сидений",
+    "description": "Удалили застарелые пятна, вернули коже матовую заводскую текстуру",
+    "before": "../assets/images/before-seats.png",
+    "after": "../assets/images/after-seats.png",
+    "order": 1
+  },
+  {
+    "id": "polish",
+    "title": "Полировка и жидкое стекло",
+    "description": "Убрали паутину царапин, придали кузову глубокий зеркальный блеск",
+    "before": "../assets/images/before-polish.png",
+    "after": "../assets/images/after-polish.png",
+    "order": 2
+  }
+]

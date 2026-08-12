@@ -1,12 +1,15 @@
 ---
-import { contacts } from '../data/content';
 import SectionHeader from './ui/SectionHeader.astro';
 import Icon from './ui/Icon.astro';
+import { getSection, getSingleton } from '../lib/content';
+
+const section = await getSection('contacts');
+const contacts = (await getSingleton('contacts')).data;
 ---
 
 <section class="section contacts" id="contacts">
   <div class="container contacts__inner">
-    <SectionHeader badge={contacts.badge} title={contacts.title} />
+    <SectionHeader badge={section.data.badge} title={section.data.title} />
 
     <div class="contacts__content">
       <div class="contacts__card">
@@ -28,7 +31,7 @@ import Icon from './ui/Icon.astro';
                 ) : (
                   <>
                     <span class="contact-item__value contact-item__value--full">{item.value}</span>
-                    {'valueShort' in item && item.valueShort ? (
+                    {item.valueShort ? (
                       <span class="contact-item__value contact-item__value--short">{item.valueShort}</span>
                     ) : null}
                   </>

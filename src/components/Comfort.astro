@@ -1,11 +1,14 @@
 ---
-import { comfort } from '../data/content';
 import SectionHeader from './ui/SectionHeader.astro';
+import { getSection, getSingleton } from '../lib/content';
+
+const section = await getSection('comfort');
+const comfort = (await getSingleton('comfort')).data;
 ---
 
 <section class="section comfort">
   <div class="container comfort__inner">
-    <SectionHeader badge={comfort.badge} title={comfort.title} />
+    <SectionHeader badge={section.data.badge} title={section.data.title} />
 
     <div class="comfort__content">
       <div class="comfort__media">

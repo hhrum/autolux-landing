@@ -1,7 +1,10 @@
 ---
-import { hero } from '../data/content';
 import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
+import { getSingleton } from '../lib/content';
+
+const heroEntry = await getSingleton('hero');
+const hero = heroEntry.data;
 ---
 
 <section class="hero">

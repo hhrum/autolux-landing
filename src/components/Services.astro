@@ -1,26 +1,33 @@
 ---
-import { services } from '../data/content';
+import { getCollection } from 'astro:content';
 import SectionHeader from './ui/SectionHeader.astro';
 import Icon from './ui/Icon.astro';
+import { getSection } from '../lib/content';
+
+const section = await getSection('services');
+
+const services = (await getCollection('services')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <section class="section services" id="services">
   <div class="container services__inner">
-    <SectionHeader badge={services.badge} title={services.title} />
+    <SectionHeader badge={section.data.badge} title={section.data.title} />
 
     <div class="services__grid">
       {
-        services.items.map((item) => (
+        services.map((item) => (
           <article class="service-card">
             <div class="service-card__media">
-              <img src={item.image.src} alt="" loading="lazy" decoding="async" />
+              <img src={item.data.image.src} alt="" loading="lazy" decoding="async" />
             </div>
             <div class="service-card__body">
-              <h3 class="service-card__title">{item.title}</h3>
-              <p class="service-card__desc">{item.description}</p>
+              <h3 class="service-card__title">{item.data.title}</h3>
+              <p class="service-card__desc">{item.body?.trim()}</p>
               <div class="service-card__footer">
-                <span class="service-card__price">{item.price}</span>
-                <a class="service-card__link" href={item.href}>
+                <span class="service-card__price">{item.data.price}</span>
+                <a class="service-card__link" href={item.data.href}>
                   <span class="service-card__link-text">Подробнее</span>
                   <Icon name="arrow" size={14} />
                 </a>

@@ -1,29 +1,29 @@
 ---
-import { valueProps } from '../data/content';
+import { getCollection } from 'astro:content';
 import SectionHeader from './ui/SectionHeader.astro';
 import Icon from './ui/Icon.astro';
+import { getSection } from '../lib/content';
 
-const iconMap = {
-  shield: 'shield',
-  sparkles: 'sparkles',
-  wind: 'wind',
-  clock: 'clock',
-} as const;
+const section = await getSection('valueProps');
+
+const items = (await getCollection('valueProps')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <section class="section value-props" id="value-props">
   <div class="container value-props__inner">
-    <SectionHeader badge={valueProps.badge} title={valueProps.title} />
+    <SectionHeader badge={section.data.badge} title={section.data.title} />
 
     <div class="value-props__grid">
       {
-        valueProps.items.map((item) => (
+        items.map((item) => (
           <article class="prop-card">
             <div class="prop-card__icon">
-              <Icon name={iconMap[item.icon as keyof typeof iconMap]} size={24} />
+              <Icon name={item.data.icon} size={24} />
             </div>
-            <h3 class="prop-card__title">{item.title}</h3>
-            <p class="prop-card__desc">{item.description}</p>
+            <h3 class="prop-card__title">{item.data.title}</h3>
+            <p class="prop-card__desc">{item.data.description}</p>
           </article>
         ))
       }

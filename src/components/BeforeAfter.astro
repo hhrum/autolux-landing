@@ -1,27 +1,44 @@
 ---
-import { beforeAfter } from '../data/content';
+import { getCollection } from 'astro:content';
 import SectionHeader from './ui/SectionHeader.astro';
+import { getSection } from '../lib/content';
+
+const section = await getSection('beforeAfter');
+
+const cases = (await getCollection('beforeAfter')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <section class="section section--alt before-after" id="before-after">
   <div class="container before-after__inner">
-    <SectionHeader badge={beforeAfter.badge} title={beforeAfter.title} />
+    <SectionHeader badge={section.data.badge} title={section.data.title} />
 
     <div class="before-after__stack">
       {
-        beforeAfter.items.map((item) => (
+        cases.map((item) => (
           <article class="case">
             <header class="case__info">
-              <h3 class="case__title">{item.title}</h3>
-              <p class="case__desc">{item.description}</p>
+              <h3 class="case__title">{item.data.title}</h3>
+              <p class="case__desc">{item.data.description}</p>
             </header>
             <div class="case__images">
               <div class="case__block">
-                <img src={item.before.src} alt={`До: ${item.title}`} loading="lazy" decoding="async" />
+                <img
+                  src={item.data.before.src}
+                  alt={`До: ${item.data.title}`}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span class="case__label case__label--before">ДО</span>
               </div>
               <div class="case__block case__block--after">
-                <img src={item.after.src} alt={`После: ${item.title}`} loading="lazy" decoding="async" />
+                <img
+                  src={item.data.after.src}
+                  alt={`После: ${item.data.title}`}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span class="case__label case__label--after">ПОСЛЕ</span>
               </div>
             </div>
