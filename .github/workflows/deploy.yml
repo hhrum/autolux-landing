@@ -13,22 +13,31 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Job-level env is inherited by withastro/action composite steps (step-level env alone is unreliable).
+    env:
+      # Admin publishing POC — values are inlined into the /admin client bundle at build time.
+      # Required secret: Settings → Secrets and variables → Actions → VITE_GH_TOKEN
+      VITE_GH_TOKEN: ${{ secrets.VITE_GH_TOKEN }}
+      VITE_GH_OWNER: hhrum
+      VITE_GH_REPO: autolux-landing
+      VITE_GH_MAIN_BRANCH: main
+      VITE_GH_DRAFT_BRANCH: draft
+      VITE_GH_WORKFLOW_FILE: deploy.yml
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
+      - name: Verify publish env
+        run: |
+          if [ -z "$VITE_GH_TOKEN" ]; then
+            echo "::error::VITE_GH_TOKEN secret is empty. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "VITE_GH_TOKEN is set (${#VITE_GH_TOKEN} chars)"
+          echo "VITE_GH_OWNER=$VITE_GH_OWNER VITE_GH_REPO=$VITE_GH_REPO"
       - name: Install, build, and upload your site
         uses: withastro/action@v6
         with:
           node-version: 22
-        env:
-          # Admin publishing POC — baked into /admin client bundle.
-          # Add repo secret: Settings → Secrets → Actions → VITE_GH_TOKEN
-          VITE_GH_TOKEN: ${{ secrets.VITE_GH_TOKEN }}
-          VITE_GH_OWNER: ${{ vars.VITE_GH_OWNER || 'hhrum' }}
-          VITE_GH_REPO: ${{ vars.VITE_GH_REPO || 'autolux-landing' }}
-          VITE_GH_MAIN_BRANCH: ${{ vars.VITE_GH_MAIN_BRANCH || 'main' }}
-          VITE_GH_DRAFT_BRANCH: ${{ vars.VITE_GH_DRAFT_BRANCH || 'draft' }}
-          VITE_GH_WORKFLOW_FILE: ${{ vars.VITE_GH_WORKFLOW_FILE || 'deploy.yml' }}
 
   deploy:
     needs: build
