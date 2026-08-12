@@ -77,9 +77,7 @@ const hero = defineCollection({
     z.object({
       image: image(),
       badge: z.string(),
-      titleBefore: z.string(),
-      titleAccent: z.string(),
-      titleAfter: z.string(),
+      title: z.string(),
       description: z.string(),
       primaryCta: z.object({
         label: z.string(),
@@ -111,13 +109,14 @@ const sections = defineCollection({
 
 const valueProps = defineCollection({
   loader: file('src/data/value-props.json'),
-  schema: z.object({
-    id: z.string(),
-    icon: z.enum(['shield', 'sparkles', 'wind', 'clock']),
-    title: z.string(),
-    description: z.string(),
-    order: z.number(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      id: z.string(),
+      icon: image(),
+      title: z.string(),
+      description: z.string(),
+      order: z.number(),
+    }),
 });
 
 const beforeAfter = defineCollection({
@@ -134,16 +133,10 @@ const beforeAfter = defineCollection({
 });
 
 const comfort = defineCollection({
-  loader: glob({
-    pattern: 'comfort.json',
-    base: './src/data',
-    generateId: ({ entry }) => entry.replace(/\.json$/, ''),
-  }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/comfort' }),
   schema: ({ image }) =>
     z.object({
       image: image(),
-      description: z.string(),
-      amenities: z.array(z.string()),
     }),
 });
 

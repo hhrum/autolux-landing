@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import SectionHeader from './ui/SectionHeader.astro';
-import Icon from './ui/Icon.astro';
 import { getSection } from '../lib/content';
 
 const section = await getSection('valueProps');
@@ -20,7 +19,7 @@ const items = (await getCollection('valueProps')).sort(
         items.map((item) => (
           <article class="prop-card">
             <div class="prop-card__icon">
-              <Icon name={item.data.icon} size={24} />
+              <img class="prop-card__icon-img" src={item.data.icon.src} width="24" height="24" alt="" />
             </div>
             <h3 class="prop-card__title">{item.data.title}</h3>
             <p class="prop-card__desc">{item.data.description}</p>
@@ -60,6 +59,12 @@ const items = (await getCollection('valueProps')).sort(
     width: fit-content;
     border-radius: var(--radius);
     background: var(--accent-soft);
+  }
+
+  .prop-card__icon-img {
+    display: block;
+    width: 24px;
+    height: 24px;
   }
 
   .prop-card__title {

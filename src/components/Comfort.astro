@@ -1,9 +1,11 @@
 ---
+import { render } from 'astro:content';
 import SectionHeader from './ui/SectionHeader.astro';
 import { getSection, getSingleton } from '../lib/content';
 
 const section = await getSection('comfort');
-const comfort = (await getSingleton('comfort')).data;
+const comfortEntry = await getSingleton('comfort');
+const { Content } = await render(comfortEntry);
 ---
 
 <section class="section comfort">
@@ -12,20 +14,17 @@ const comfort = (await getSingleton('comfort')).data;
 
     <div class="comfort__content">
       <div class="comfort__media">
-        <img src={comfort.image.src} alt="Зона ожидания AutoLux" loading="lazy" decoding="async" />
+        <img
+          src={comfortEntry.data.image.src}
+          alt="Зона ожидания AutoLux"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div class="comfort__details">
-        <p class="comfort__desc">{comfort.description}</p>
-        <ul class="comfort__list">
-          {
-            comfort.amenities.map((item) => (
-              <li class="comfort__item">
-                <span class="comfort__bullet" aria-hidden="true"></span>
-                <span>{item}</span>
-              </li>
-            ))
-          }
-        </ul>
+        <div class="comfort__text">
+          <Content />
+        </div>
       </div>
     </div>
   </div>
@@ -61,30 +60,40 @@ const comfort = (await getSingleton('comfort')).data;
     gap: 20px;
   }
 
-  .comfort__desc {
+  .comfort__text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .comfort__text :global(p) {
     color: var(--muted);
     font-size: 15px;
     line-height: 1.5;
   }
 
-  .comfort__list {
+  .comfort__text :global(ul) {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  .comfort__item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+  .comfort__text :global(li) {
+    position: relative;
+    padding-left: 20px;
     font-size: 14px;
   }
 
-  .comfort__bullet {
-    flex-shrink: 0;
+  .comfort__text :global(li::before) {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 0;
     width: 8px;
     height: 8px;
-    margin-top: 5px;
     border-radius: 4px;
     background: var(--accent);
   }
@@ -94,7 +103,7 @@ const comfort = (await getSingleton('comfort')).data;
       height: 200px;
     }
 
-    .comfort__desc {
+    .comfort__text :global(p) {
       font-size: 16px;
     }
   }

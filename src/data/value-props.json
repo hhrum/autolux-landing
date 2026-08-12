@@ -1,28 +1,28 @@
 [
   {
     "id": "chemistry",
-    "icon": "shield",
+    "icon": "../assets/icons/shield-check.svg",
     "title": "Премиальная химия",
     "description": "Используем только проверенные европейские составы Koch Chemie, Leraton и линейку Detail'er.",
     "order": 1
   },
   {
     "id": "gentle",
-    "icon": "sparkles",
+    "icon": "../assets/icons/sparkles.svg",
     "title": "Бережный подход",
     "description": "Исключительно двухфазная бесконтактная мойка без повреждения ЛКП и хрома вашего авто.",
     "order": 2
   },
   {
     "id": "dry",
-    "icon": "wind",
+    "icon": "../assets/icons/wind.svg",
     "title": "Сухо на 100%",
     "description": "Профессиональные экстракторы и сушильные пушки — вы получаете абсолютно сухой и свежий салон.",
     "order": 3
   },
   {
     "id": "hours",
-    "icon": "clock",
+    "icon": "../assets/icons/clock.svg",
     "title": "Режим 24/7",
     "description": "Работаем круглосуточно, чтобы вы могли привести машину в порядок в любое удобное время.",
     "order": 4

@@ -19,7 +19,7 @@
 | Hero (первый экран) | `src/data/hero.json` | JSON |
 | Преимущества | `src/data/value-props.json` | JSON |
 | До / После | `src/data/before-after.json` | JSON |
-| Зона комфорта | `src/data/comfort.json` | JSON |
+| Зона комфорта | `src/content/comfort/*.md` | Markdown |
 | Контакты, соцсети, карта | `src/data/contacts.json` | JSON |
 | Копирайт в футере | `src/data/footer.json` | JSON |
 | Картинки | `src/assets/images/` | PNG и др. |
@@ -38,7 +38,8 @@ src/
 ├── content/                   ← Markdown-коллекции (списки)
 │   ├── services/
 │   ├── plans/
-│   └── reviews/
+│   ├── reviews/
+│   └── comfort/
 ├── data/                      ← JSON-коллекции (конфиг и списки без body)
 ├── assets/images/             ← картинки, на которые ссылаются поля image / before / after
 └── lib/content.ts             ← getSingleton(), getSection()
@@ -148,7 +149,7 @@ order: 1
 |---|---|
 | `image` | Фоновая картинка |
 | `badge` | Плашка над заголовком |
-| `titleBefore` / `titleAccent` / `titleAfter` | Заголовок: обычный + акцентный фрагмент + хвост |
+| `title` | Заголовок. Фрагмент в `*звёздочках*` рендерится акцентом (класс `hero__accent`) |
 | `description` | Подзаголовок |
 | `primaryCta` / `secondaryCta` | Кнопки: `label` + `href` |
 | `stats` | Нижняя полоса: `label` + `value` |
@@ -157,16 +158,28 @@ order: 1
 
 Массив карточек: `id`, `icon`, `title`, `description`, `order`.
 
-Допустимые `icon`: `shield`, `sparkles`, `wind`, `clock` (должны совпадать с именами в `Icon.astro`).
+`icon` — путь к SVG/картинке относительно `src/data/` (файлы в `src/assets/icons/`), например `../assets/icons/shield-check.svg`.
 
 ### `before-after.json` — кейсы «До / После»
 
 Массив: `id`, `title`, `description`, `before`, `after`, `order`.  
 `before` / `after` — пути к картинкам относительно `src/data/` (например `../assets/images/before-seats.png`).
 
-### `comfort.json` — зона ожидания
+### `src/content/comfort/` — зона ожидания
 
-`image`, `description`, `amenities` (массив строк-буллетов).  
+Markdown-файл: в frontmatter только `image`, в **body** — весь текст секции (абзац + список и т.д.).
+
+```md
+---
+image: ../../assets/images/comfort.png
+---
+
+Описание зоны ожидания.
+
+- Пункт удобства 1
+- Пункт удобства 2
+```
+
 Заголовок секции — в `sections.json` → `comfort`.
 
 ### `contacts.json` — контакты
@@ -208,7 +221,7 @@ order: 1
 | Тарифы | `Pricelist.astro` | `sections.pricelist` + `plans` |
 | Преимущества | `ValueProps.astro` | `sections.valueProps` + `valueProps` |
 | До / После | `BeforeAfter.astro` | `sections.beforeAfter` + `beforeAfter` |
-| Комфорт | `Comfort.astro` | `sections.comfort` + `comfort` |
+| Комфорт | `Comfort.astro` | `sections.comfort` + `comfort` (md body) |
 | Отзывы | `Reviews.astro` | `sections.reviews` + `reviews` |
 | Контакты | `Contacts.astro` | `sections.contacts` + `contacts` |
 | Футер | `Footer.astro` | `brand`, `footer` |

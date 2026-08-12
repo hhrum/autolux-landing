@@ -19,3 +19,12 @@ export async function getSection(id: string) {
   }
   return entry;
 }
+
+/** `*акцент*` → `<span class="…">акцент</span>` for hero titles. */
+export function formatAccentTitle(title: string, className = 'hero__accent'): string {
+  const escaped = title
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+  return escaped.replace(/\*([^*]+)\*/g, `<span class="${className}">$1</span>`);
+}

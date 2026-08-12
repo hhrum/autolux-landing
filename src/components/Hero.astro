@@ -1,10 +1,11 @@
 ---
 import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
-import { getSingleton } from '../lib/content';
+import { formatAccentTitle, getSingleton } from '../lib/content';
 
 const heroEntry = await getSingleton('hero');
 const hero = heroEntry.data;
+const titleHtml = formatAccentTitle(hero.title);
 ---
 
 <section class="hero">
@@ -16,9 +17,7 @@ const hero = heroEntry.data;
   <div class="container hero__inner">
     <div class="hero__content">
       <Badge text={hero.badge} />
-      <h1 class="hero__title">
-        {hero.titleBefore}<span class="hero__accent">{hero.titleAccent}</span>{hero.titleAfter}
-      </h1>
+      <h1 class="hero__title" set:html={titleHtml} />
       <p class="hero__desc">{hero.description}</p>
       <div class="hero__actions">
         <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
