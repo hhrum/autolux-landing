@@ -4,15 +4,18 @@
  */
 import { Octokit } from 'octokit';
 
-const token = process.env.VITE_GH_TOKEN;
-const owner = process.env.VITE_GH_OWNER;
-const repo = process.env.VITE_GH_REPO;
-const mainBranch = process.env.VITE_GH_MAIN_BRANCH || 'main';
-const draftBranch = process.env.VITE_GH_DRAFT_BRANCH || 'draft';
-const workflowFile = process.env.VITE_GH_WORKFLOW_FILE || 'deploy.yml';
+const token = process.env.PUBLIC_GH_TOKEN || process.env.VITE_GH_TOKEN;
+const owner = process.env.PUBLIC_GH_OWNER || process.env.VITE_GH_OWNER;
+const repo = process.env.PUBLIC_GH_REPO || process.env.VITE_GH_REPO;
+const mainBranch =
+  process.env.PUBLIC_GH_MAIN_BRANCH || process.env.VITE_GH_MAIN_BRANCH || 'main';
+const draftBranch =
+  process.env.PUBLIC_GH_DRAFT_BRANCH || process.env.VITE_GH_DRAFT_BRANCH || 'draft';
+const workflowFile =
+  process.env.PUBLIC_GH_WORKFLOW_FILE || process.env.VITE_GH_WORKFLOW_FILE || 'deploy.yml';
 
 if (!token || !owner || !repo) {
-  console.error('Missing VITE_GH_TOKEN / OWNER / REPO');
+  console.error('Missing PUBLIC_GH_TOKEN / OWNER / REPO');
   process.exit(1);
 }
 

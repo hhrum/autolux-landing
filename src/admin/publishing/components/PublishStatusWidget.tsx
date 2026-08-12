@@ -28,8 +28,8 @@ export function PublishStatusWidget() {
   if (!configured) {
     return (
       <div className="mb-3 rounded-lg border border-amber-300/80 bg-amber-50 px-3 py-2 text-sm text-amber-950">
-        GitHub не настроен: заполните <code className="text-xs">VITE_GH_TOKEN</code>,{' '}
-        <code className="text-xs">VITE_GH_OWNER</code>, <code className="text-xs">VITE_GH_REPO</code> в
+        GitHub не настроен: заполните <code className="text-xs">PUBLIC_GH_TOKEN</code>,{' '}
+        <code className="text-xs">PUBLIC_GH_OWNER</code>, <code className="text-xs">PUBLIC_GH_REPO</code> в
         .env
       </div>
     );

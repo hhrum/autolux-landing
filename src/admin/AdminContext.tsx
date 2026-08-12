@@ -113,7 +113,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   const saveDraft = useCallback(async () => {
     if (!client) {
-      toast.error('GitHub не настроен (проверьте VITE_GH_*)');
+      toast.error('GitHub не настроен (проверьте PUBLIC_GH_*)');
       return;
     }
     setSaving(true);
@@ -131,7 +131,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   const publish = useCallback(async () => {
     if (!client) {
-      toast.error('GitHub не настроен (проверьте VITE_GH_*)');
+      toast.error('GitHub не настроен (проверьте PUBLIC_GH_*)');
       return;
     }
     setPublishing(true);

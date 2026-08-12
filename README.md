@@ -149,9 +149,9 @@ npm run build
 
 ## Админка (`/admin`)
 
-Мобильный редактор контента. Публикация идёт через GitHub API (Octokit) в ветку `draft`, затем merge в `main` (PR merge). Ключи — в `.env` / `.env.example` (`VITE_GH_*`).
+Мобильный редактор контента. Публикация идёт через GitHub API (Octokit) в ветку `draft`, затем merge в `main` (PR merge). Ключи — в `.env` / `.env.example` (`PUBLIC_GH_*`). Для Pages: **Repository** secret `PUBLIC_GH_TOKEN` (не Environment `github-pages` — build job его не видит).
 
-**Безопасность (POC):** `VITE_GH_TOKEN` попадает в клиентский бандл админки — только для закрытого POC. В проде нужен свой REST API и server-side token (`RestApiAdapter` вместо `GitHubOctokitAdapter`). Не коммитьте `.env`.
+**Безопасность (POC):** `PUBLIC_GH_TOKEN` попадает в клиентский бандл админки — только для закрытого POC. В проде нужен свой REST API и server-side token (`RestApiAdapter` вместо `GitHubOctokitAdapter`). Не коммитьте `.env`.
 
 Картинки в этой итерации: локальная замена только для превью, в Git не пушатся.
 

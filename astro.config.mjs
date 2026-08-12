@@ -10,9 +10,6 @@ export default defineConfig({
   site: 'https://hhrum.github.io',
   base: '/autolux-landing',
   vite: {
-    // POC: expose VITE_GH_* to the admin client bundle (intentionally insecure).
-    // Astro defaults to PUBLIC_ only; Admin-GitHub.md uses VITE_* names.
-    envPrefix: ['PUBLIC_', 'VITE_'],
     plugins: [tailwindcss()],
   },
   integrations: [react()],
