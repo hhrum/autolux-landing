@@ -2,7 +2,7 @@
 title: Защита кузова
 price: от 8 000 ₽
 image: ../../assets/images/service-protection.png
-href: '#pricelist'
+href: "#pricelist"
 order: 5
 ---
 

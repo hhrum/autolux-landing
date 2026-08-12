@@ -2,7 +2,7 @@
 title: Детейлинг-мойка
 price: от 2 500 ₽
 image: ../../assets/images/service-detailing.png
-href: '#pricelist'
+href: "#pricelist"
 order: 3
 ---
 
