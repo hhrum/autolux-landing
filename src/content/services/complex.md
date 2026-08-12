@@ -2,7 +2,7 @@
 title: Комплексная мойка
 price: от 1 200 ₽
 image: ../../assets/images/service-complex.png
-href: '#pricelist'
+href: "#pricelist"
 order: 2
 ---
 

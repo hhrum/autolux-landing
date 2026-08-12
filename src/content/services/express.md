@@ -2,7 +2,7 @@
 title: Экспресс-мойка
 price: от 600 ₽
 image: ../../assets/images/service-express.png
-href: '#pricelist'
+href: "#pricelist"
 order: 1
 ---
 

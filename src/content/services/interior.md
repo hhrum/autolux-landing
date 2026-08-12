@@ -2,7 +2,7 @@
 title: Химчистка салона
 price: от 6 000 ₽
 image: ../../assets/images/service-interior.png
-href: '#pricelist'
+href: "#pricelist"
 order: 4
 ---
 

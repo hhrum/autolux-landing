@@ -20,7 +20,15 @@
     }
   ],
   "socials": [
-    { "label": "ВКонтакте", "href": "#", "variant": "vk" },
-    { "label": "Telegram", "href": "#", "variant": "tg" }
+    {
+      "label": "ВКонтакте",
+      "href": "#",
+      "variant": "vk"
+    },
+    {
+      "label": "Telegram",
+      "href": "#",
+      "variant": "tg"
+    }
   ]
 }

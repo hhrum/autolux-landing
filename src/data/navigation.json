@@ -1,7 +1,32 @@
 [
-  { "id": "services", "label": "Услуги", "href": "#services", "order": 1 },
-  { "id": "pricelist", "label": "Цены", "href": "#pricelist", "order": 2 },
-  { "id": "value-props", "label": "Преимущества", "href": "#value-props", "order": 3 },
-  { "id": "before-after", "label": "До / После", "href": "#before-after", "order": 4 },
-  { "id": "contacts", "label": "Контакты", "href": "#contacts", "order": 5 }
+  {
+    "id": "services",
+    "label": "Услуги",
+    "href": "#services",
+    "order": 1
+  },
+  {
+    "id": "pricelist",
+    "label": "Цены",
+    "href": "#pricelist",
+    "order": 2
+  },
+  {
+    "id": "value-props",
+    "label": "Преимущества",
+    "href": "#value-props",
+    "order": 3
+  },
+  {
+    "id": "before-after",
+    "label": "До / После",
+    "href": "#before-after",
+    "order": 4
+  },
+  {
+    "id": "contacts",
+    "label": "Контакты",
+    "href": "#contacts",
+    "order": 5
+  }
 ]
